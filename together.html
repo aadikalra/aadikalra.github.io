@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aadi Saini | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0070f3;
+            --secondary: #7928ca;
+            --dark: #111827;
+            --light: #f9fafb;
+        }
+
+        /* Custom Selection Highlight */
+        ::selection {
+            background-color: rgba(121, 40, 202, 0.5);
+            color: var(--light);
+        }
+
+        ::-moz-selection {
+            /* Firefox Specific */
+            background-color: rgba(121, 40, 202, 0.5);
+            color: var(--light);
+        }
+
+        * {
+            cursor: none;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        main {
+            padding-top: 4.5rem;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .cursor-dot {
+            width: 12px;
+            height: 12px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.8;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        .cursor-dot.active {
+            width: 24px;
+            height: 24px;
+            background-color: var(--secondary);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, rgba(0, 112, 243, 0.15) 0%, rgba(121, 40, 202, 0.15) 100%);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .gradient-border {
+            position: relative;
+            border-radius: 0.5rem;
+            background: var(--dark);
+            padding: 1px;
+            z-index: 1;
+        }
+
+        .gradient-border::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 0.5rem;
+            padding: 1px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: -1;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+        }
+        
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            position: absolute;
+            left: -8px;
+            top: 24px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .lit-square {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(0, 112, 243, 0.35);
+            box-shadow: 0 0 10px rgba(0, 112, 243, 0.5);
+            pointer-events: none;
+            z-index: 0;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .custom-context-menu {
+            position: fixed;
+            background: var(--dark);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.375rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 0.5rem;
+            z-index: 10000;
+            display: none;
+            color: var(--light);
+            font-size: 0.875rem;
+        }
+
+        .custom-context-menu button {
+            background: transparent;
+            border: none;
+            color: var(--light);
+            padding: 0.5rem 1rem;
+            text-align: left;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 0.25rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .custom-context-menu button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .project-tag {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background-color: var(--primary);
+            animation: blink 0.7s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Page visibility */
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="grid-bg">
+    <div class="cursor-dot"></div>
+
+    <header class="fixed w-full bg-dark/80 backdrop-blur-md border-b border-white/10 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold gradient-text">Aadi Saini</div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link font-medium text-gray-300 hover:text-white">Home</a>
+                <a href="#about" class="nav-link font-medium text-gray-300 hover:text-white page-nav">About</a>
+                <a href="#skills" class="nav-link font-medium text-gray-300 hover:text-white page-nav">Skills</a>
+                <a href="#projects" class="nav-link font-medium text-gray-300 hover:text-white page-nav">Projects</a>
+                <a href="#experience" class="nav-link font-medium text-gray-300 hover:text-white page-nav">Experience</a>
+                <a href="#contact" class="nav-link font-medium text-gray-300 hover:text-white page-nav">Contact</a>
+                <a href="#me" class="nav-link font-medium text-gray-300 hover:text-white">More About Me</a>
+            </nav>
+            <button id="menu-toggle" class="md:hidden text-gray-300 focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-dark/90 backdrop-blur-md border-t border-white/10">
+            <div class="px-4 py-2 space-y-2">
+                <a href="#home" class="block py-2 text-gray-300 hover:text-white">Home</a>
+                <a href="#about" class="block py-2 text-gray-300 hover:text-white page-nav">About</a>
+                <a href="#skills" class="block py-2 text-gray-300 hover:text-white page-nav">Skills</a>
+                <a href="#projects" class="block py-2 text-gray-300 hover:text-white page-nav">Projects</a>
+                <a href="#experience" class="block py-2 text-gray-300 hover:text-white page-nav">Experience</a>
+                <a href="#contact" class="block py-2 text-gray-300 hover:text-white page-nav">Contact</a>
+                <a href="#me" class="block py-2 text-gray-300 hover:text-white">More About Me</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="home" class="page">
+            <section id="home-section" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+                <div class="container mx-auto px-4 text-center relative z-10">
+                    <div class="mb-8">
+                        <p class="text-lg text-gray-300 mb-4">Welcome to my portfolio</p>
+                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
+                            I'm <span class="gradient-text">Aadi Saini</span>
+                            <span id="typing-text" class="text-primary">Coder</span><span class="typing-cursor"></span>
+                        </h1>
+                        <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+                            An enthusiastic 7th-grade coder dedicated to learning, building cool things, and exploring the
+                            world of technology.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <a href="#contact"
+                                class="btn-hover bg-primary text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-primary/80">
+                                Get in Touch
+                            </a>
+                            <a href="#me"
+                                class="btn-hover border border-primary text-primary px-8 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-primary hover:text-white">
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute right-10 top-1/2 transform -translate-y-1/2 hidden lg:block">
+                    <div class="w-80 h-80 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center floating">
+                        <div class="text-6xl font-bold text-white">Aadi</div>
+                    </div>
+                </div>
+                <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-center">
+                    <p class="text-gray-400 mb-2">Scroll Down</p>
+                    <div class="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
+                        <div class="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-bounce"></div>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="about-section-home" class="py-20 relative">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">About <span class="gradient-text">Me</span></h2>
+                        <div class="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
+                    </div>
+                    <div class="flex flex-col lg:flex-row items-center gap-12">
+                        <div class="lg:w-1/3">
+                            <div class="gradient-border">
+                                <div class="w-80 h-96 rounded-lg overflow-hidden">
+                                    <img src="https://placehold.co/320x400/1f2937/e0e7ff?text=Aadi+Saini"
+                                        onerror="this.onerror=null; this.src='https://placehold.co/320x400/1f2937/e0e7ff?text=Image';"
+                                        alt="Aadi Saini" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:w-2/3">
+                            <h3 class="text-2xl font-semibold mb-6 gradient-text">My Profile</h3>
+                            <p class="text-gray-300 mb-6 text-lg leading-relaxed">
+                                I'm a motivated 7th grader with a strong interest in coding and web development. I enjoy
+                                learning new technologies and applying them to build projects.
+                            </p>
+                            <p class="text-gray-300 mb-6 text-lg leading-relaxed">
+                                My passion for programming, especially C++ and web technologies, drives me to continuously
+                                practice and improve my skills. I'm always excited about the next coding challenge!
+                                <span class="text-primary font-semibold">Cleared both USACO Silver and Bronze in 7th
+                                    grade!</span>
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <h4 class="text-gray-400 mb-2">Name:</h4>
+                                    <p class="text-white font-medium">Aadi Saini</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-gray-400 mb-2">Email:</h4>
+                                    <p class="text-white font-medium">caraadi8@gmail.com</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-gray-400 mb-2">Location:</h4>
+                                    <p class="text-white font-medium">Rocklin, CA, USA</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-gray-400 mb-2">Status:</h4>
+                                    <p class="text-white font-medium">Learning & Growing</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-4 mt-6">
+                                <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                                    </svg>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                                    </svg>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="skills-section-home" class="py-20 gradient-bg">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Technical <span
+                                class="gradient-text">Skills</span></h2>
+                        <div class="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
+                        <p class="text-gray-300 max-w-2xl mx-auto">Languages & Technologies</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="glass-card p-6 rounded-lg text-center">
+                            <h3 class="text-xl font-semibold mb-4 text-primary">Frontend</h3>
+                            <ul class="space-y-2 text-gray-300">
+                                <li>HTML</li>
+                                <li>CSS</li>
+                                <li>JavaScript (JS)</li>
+                                <li>EJS</li>
+                                <li>React</li>
+                                <li>Vite</li>
+                                <li>Redux</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card p-6 rounded-lg text-center">
+                            <h3 class="text-xl font-semibold mb-4 text-secondary">Backend</h3>
+                            <ul class="space-y-2 text-gray-300">
+                                <li>SQL</li>
+                                <li>JSON</li>
+                                <li>MongoDB</li>
+                                <li>Mongoose</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card p-6 rounded-lg text-center">
+                            <h3 class="text-xl font-semibold mb-4 text-primary">Server</h3>
+                            <ul class="space-y-2 text-gray-300">
+                                <li>Node.js</li>
+                                <li>Express.js</li>
+                                <li>Nodemon</li>
+                                <li>Terminal</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card p-6 rounded-lg text-center">
+                            <h3 class="text-xl font-semibold mb-4 text-secondary">Other</h3>
+                            <ul class="space-y-2 text-gray-300">
+                                <li>C++</li>
+                                <li>Mild Python</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="glass-card p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-4 gradient-text">Personal Attributes</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="text-lg font-medium text-white mb-2">Communication</h4>
+                                    <p class="text-gray-300">Expressing ideas clearly.</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-medium text-white mb-2">Enthusiasm</h4>
+                                    <p class="text-gray-300">Passionate about learning and coding.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="glass-card p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-4 gradient-text">Learning Goals</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="text-lg font-medium text-white mb-2">USACO Gold & Platinum</h4>
+                                    <p class="text-gray-300">Advancing to higher competitive programming levels.</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-medium text-white mb-2">Full-Stack Development</h4>
+                                    <p class="text-gray-300">Building complete web applications.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="projects-section-home" class="py-20">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Featured <span
+                                class="gradient-text">Projects</span></h2>
+                        <div class="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
+                        <p class="text-gray-300 max-w-2xl mx-auto">A selection of projects I've worked on, showcasing my
+                            skills and interests.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="glass-card p-6 rounded-lg">
+                            <div class="mb-4">
+                                <svg class="w-12 h-12 text-purple-400 mx-auto" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9.75 17L9 20l-1 1h10l-1-1-0.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3 text-white text-center">This Portfolio Website</h3>
+                            <p class="text-gray-300 text-sm mb-4">
+                                The very website you are Browse! Built from scratch to showcase my skills, projects, and
+                                journey as a young coder. Features interactive elements and a modern design.
+                            </p>
+                            <div class="mb-4 text-center">
+                                <span class="project-tag">HTML</span>
+                                <span class="project-tag">CSS</span>
+                                <span class="project-tag">Tailwind CSS</span>
+                                <span class="project-tag">JavaScript</span>
+                            </div>
+                            <div class="text-center">
+                                <a href="#projects"
+                                    class="text-sm text-primary hover:text-primary/80 transition duration-300">
+                                    View All Projects →
+                                </a>
+                            </div>
+                        </div>
+                        <div class="glass-card p-6 rounded-lg">
+                            <div class="mb-4">
+                                <svg class="w-12 h-12 text-blue-400 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3 text-white text-center">USACO Practice Platform</h3>
+                            <p class="text-gray-300 text-sm mb-4">
+                                A web application I'm developing to help practice for USACO contests. It includes problem
+                                sets, a C++ code editor, and a testing environment.
+                            </p>
+                            <div class="mb-4 text-center">
+                                <span class="project-tag">React</span>
+                                <span class="project-tag">Node.js</span>
+                                <span class="project-tag">MongoDB</span>
+                                <span class="project-tag">C++</span>
+                            </div>
+                            <div class="text-center">
+                                <a href="#projects"
+                                    class="text-sm text-primary hover:text-primary/80 transition duration-300">
+                                    View All Projects →
+                                </a>
+                            </div>
+                        </div>
+                        <div class="glass-card p-6 rounded-lg">
+                            <div class="mb-4">
+                                <svg class="w-12 h-12 text-green-400 mx-auto" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3 text-white text-center">Python Algo Visualizer</h3>
+                            <p class="text-gray-300 text-sm mb-4">
+                                A simple tool built with Python and Tkinter to visualize common sorting and searching
+                                algorithms. Helps in understanding their step-by-step execution.
+                            </p>
+                            <div class="mb-4 text-center">
+                                <span class="project-tag">Python</span>
+                                <span class="project-tag">Tkinter</span>
+                                <span class="project-tag">Algorithms</span>
+                                <span class="project-tag">Education</span>
+                            </div>
+                            <div class="text-center">
+                                <a href="#projects"
+                                    class="text-sm text-primary hover:text-primary/80 transition duration-300">
+                                    View All Projects →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="experience-section-home" class="py-20 gradient-bg">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Journey</span></h2>
+                        <div class="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
+                        <p class="text-gray-300 max-w-2xl mx-auto">Key milestones in my coding journey</p>
+                    </div>
+                    <div class="max-w-4xl mx-auto">
+                        <div class="relative">
+                            <div class="timeline-line"></div>
+                            <div class="space-y-12">
+                                <div class="relative pl-8">
+                                    <div class="timeline-dot"></div>
+                                    <div class="glass-card p-6 rounded-lg">
+                                        <h3 class="text-xl font-semibold text-white mb-2">USACO Silver & Bronze</h3>
+                                        <p class="text-primary font-medium mb-2">2024 - 7th Grade</p>
+                                        <p class="text-gray-300">
+                                            Successfully cleared both USACO Bronze and Silver divisions in my 7th grade
+                                            year, demonstrating strong problem-solving skills in competitive programming.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="relative pl-8">
+                                    <div class="timeline-dot"></div>
+                                    <div class="glass-card p-6 rounded-lg">
+                                        <h3 class="text-xl font-semibold text-white mb-2">Started Web Development</h3>
+                                        <p class="text-primary font-medium mb-2">2023 - 6th Grade</p>
+                                        <p class="text-gray-300">
+                                            Began learning HTML, CSS, and JavaScript. Built my first interactive websites
+                                            and discovered my passion for creating user-friendly web experiences.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="relative pl-8">
+                                    <div class="timeline-dot"></div>
+                                    <div class="glass-card p-6 rounded-lg">
+                                        <h3 class="text-xl font-semibold text-white mb-2">First Programming Language</h3>
+                                        <p class="text-primary font-medium mb-2">2022 - 5th Grade</p>
+                                        <p class="text-gray-300">
+                                            Started my coding journey with C++. Learned basic programming concepts and fell
+                                            in love with the logic and problem-solving aspects of programming.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    
+            <section id="contact-section-home" class="py-20">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In <span class="gradient-text">Touch</span></h2>
+                        <div class="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto mb-6"></div>
+                        <p class="text-gray-300 max-w-2xl mx-auto">
+                            I'm always excited to connect with fellow developers, mentors, or anyone interested in
+                            technology!
+                        </p>
+                    </div>
+                    <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+                        <div>
+                            <h3 class="text-2xl font-semibold mb-6 gradient-text">Let's Connect</h3>
+                            <div class="space-y-6">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-medium">Email</h4>
+                                        <p class="text-gray-300">caraadi8@gmail.com</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                                            </path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-medium">Location</h4>
+                                        <p class="text-gray-300">Rocklin, CA, USA</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
+                                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-white font-medium">Status</h4>
+                                        <p class="text-gray-300">Learning & Growing</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <form id="contact-form" class="space-y-6">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                                    <input type="text" id="name" name="name"
+                                        class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary transition-colors"
+                                        placeholder="Your Name" required>
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                                    <input type="email" id="email" name="email"
+                                        class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary transition-colors"
+                                        placeholder="your.email@example.com" required>
+                                </div>
+                                <div>
+                                    <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                                    <textarea id="message" name="message" rows="5"
+                                        class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-primary transition-colors resize-none"
+                                        placeholder="Your message..." required></textarea>
+                                </div>
+                                <button type="submit"
+                                    class="w-full btn-hover bg-primary text-white py-3 rounded-lg font-medium transition-all duration-300 hover:bg-primary/80">
+                                    Send Message
+                                </button>
+                                <p id="form-status" class="text-center text-sm"></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="me" class="page">
+            <section id="about-details" class="relative py-16 md:py-20">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-12 md:mb-16">
+                        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">More About <span
+                                class="gradient-text">Me</span></h1>
+                        <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
+                    </div>
+                    <div class="flex flex-col lg:flex-row items-start lg:items-center gap-10 lg:gap-16">
+                        <div class="lg:w-1/3 w-full flex justify-center">
+                            <div class="gradient-border">
+                                <div class="w-64 h-80 sm:w-72 sm:h-96 md:w-80 md:h-[400px] rounded-lg overflow-hidden">
+                                    <img src="https://placehold.co/320x400/1f2937/e0e7ff?text=Aadi+Saini"
+                                        onerror="this.onerror=null; this.src='https://placehold.co/320x400/1f2937/e0e7ff?text=Image';"
+                                        alt="Aadi Saini" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:w-2/3 w-full">
+                            <h2 class="text-2xl md:text-3xl font-semibold mb-6 gradient-text">My Coding Journey & Aspirations
+                            </h2>
+                            <p class="text-gray-300 mb-4 text-lg leading-relaxed">
+                                Hello! I'm Aadi Saini, a 7th-grade student from Rocklin, California, with a deep-seated passion
+                                for coding and technology. My journey into the world of programming started with a curiosity to
+                                understand how websites and applications are built, and it quickly grew into a dedicated
+                                pursuit.
+                            </p>
+                            <p class="text-gray-300 mb-4 text-lg leading-relaxed">
+                                I thrive on challenges, especially in competitive programming. This year, I was thrilled to
+                                clear both the USACO Bronze and Silver divisions, which has only fueled my desire to delve
+                                deeper into complex algorithms and data structures in C++. My goal is to tackle the Gold and
+                                Platinum divisions next!
+                            </p>
+                            <p class="text-gray-300 mb-6 text-lg leading-relaxed">
+                                Beyond C++, I'm actively expanding my skills in web development, working with technologies like
+                                HTML, CSS, JavaScript, and exploring frameworks like React. I enjoy the creative process of
+                                bringing ideas to life on the web, from simple static pages to more interactive experiences.
+                            </p>
+
+                            <div class="glass-card p-6 rounded-lg mb-8">
+                                <h3 class="text-xl font-semibold mb-4 text-white">Quick Facts:</h3>
+                                <ul class="list-disc list-inside text-gray-300 space-y-2">
+                                    <li><strong>Current Grade:</strong> 7th</li>
+                                    <li><strong>Location:</strong> Rocklin, CA, USA</li>
+                                    <li><strong>Primary Coding Language:</strong> C++ (for competitive programming)</li>
+                                    <li><strong>Web Technologies:</strong> HTML, CSS, JavaScript, EJS, React, Node.js, MongoDB
+                                    </li>
+                                    <li><strong>Key Achievement:</strong> USACO Silver & Bronze (7th Grade)</li>
+                                    <li><strong>Interests:</strong> Competitive Programming, Web Development, Bhangra</li>
+                                </ul>
+                            </div>
+
+                            <h3 class="text-2xl font-semibold mb-4 gradient-text">What Drives Me?</h3>
+                            <p class="text-gray-300 mb-4 text-lg leading-relaxed">
+                                The constant evolution of technology excites me. I believe in lifelong learning and am always
+                                eager to pick up new skills, experiment with different tools, and collaborate on interesting
+                                projects. The ability to solve problems and create something tangible through code is incredibly
+                                rewarding.
+                            </p>
+                            <p class="text-gray-300 text-lg leading-relaxed">
+                                When I'm not coding or studying, you might find me practicing Bhangra, a traditional Punjabi
+                                folk dance, which is a great way for me to stay active and connected to my cultural roots.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="projects" class="page">
+            <section id="projects-showcase" class="relative py-16 md:py-20">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-12 md:mb-16">
+                        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">My <span
+                                class="gradient-text">Projects</span></h1>
+                        <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
+                        <p class="mt-6 text-gray-300 max-w-lg mx-auto">
+                            A selection of projects I've worked on, showcasing my skills and interests.
+                        </p>
+                    </div>
+    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="glass-card p-6 rounded-lg flex flex-col">
+                            <div class="flex-shrink-0 mb-4">
+                                <svg class="w-12 h-12 text-purple-400 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9.75 17L9 20l-1 1h10l-1-1-0.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3 text-white text-center">This Portfolio Website</h3>
+                            <p class="text-gray-300 text-sm mb-4 flex-grow">
+                                The very website you are Browse! Built from scratch to showcase my skills, projects, and
+                                journey as a young coder. Features interactive elements and a modern design.
+                            </p>
+                            <div class="mb-4 text-center">
+                                <span class="project-tag">HTML</span>
+                                <span class="project-tag">CSS</span>
+                                <span class="project-tag">Tailwind CSS</span>
+                                <span class="project-tag">JavaScript</span>
+                            </div>
+                            <div class="mt-auto flex justify-center space-x-3">
+                                <a href="https://github.com" target="_blank" rel="noopener noreferrer"
+                                    class="text-sm text-blue-400 hover:text-blue-300 transition duration-300 flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                                    </svg>
+                                    View Source (Example)
+                                </a>
+                            </div>
+                        </div>
+        
+                        <div class="glass-card p-6 rounded-lg flex flex-col">
+                            <div class="flex-shrink-0 mb-4">
+                                <svg class="w-12 h-12 text-blue-400 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3 text-white text-center">USACO Practice Platform</h3>
+                            <p class="text-gray-300 text-sm mb-4 flex-grow">
+                                A web application I'm developing to help practice for USACO contests. It includes problem sets,
+                                a C++ code editor, and a testing environment.
+                            </p>
+                            <div class="mb-4 text-center">
+                                <span class="project-tag">React</span>
+                                <span class="project-tag">Node.js</span>
+                                <span class="project-tag">MongoDB</span>
+                                <span class="project-tag">C++</span>
+                            </div>
+                            <div class="mt-auto flex justify-center space-x-3">
+                                <a href="#" target="_blank" rel="noopener noreferrer"
+                                    class="text-sm text-blue-400 hover:text-blue-300 transition duration-300 flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                                    </svg>
+                                    GitHub (In Progress)
+                                </a>
+                            </div>
+                        </div>
+        
+                        <div class="glass-card p-6 rounded-lg flex flex-col">
+                            <div class="flex-shrink-0 mb-4">
+                                <svg class="w-12 h-12 text-green-400 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3 text-white text-center">Python Algo Visualizer</h3>
+                            <p class="text-gray-300 text-sm mb-4 flex-grow">
+                                A simple tool built with Python and Tkinter to visualize common sorting and searching
+                                algorithms. Helps in understanding their step-by-step execution.
+                            </p>
+                            <div class="mb-4 text-center">
+                                <span class="project-tag">Python</span>
+                                <span class="project-tag">Tkinter</span>
+                                <span class="project-tag">Algorithms</span>
+                                <span class="project-tag">Education</span>
+                            </div>
+                            <div class="mt-auto flex justify-center space-x-3">
+                                <a href="#" target="_blank" rel="noopener noreferrer"
+                                    class="text-sm text-blue-400 hover:text-blue-300 transition duration-300 flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                                    </svg>
+                                    GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer class="bg-dark border-t border-white/10 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-400">© <span id="current-year">2025</span> Aadi Saini. All Rights Reserved.</p>
+            <p class="text-gray-500 text-sm mt-2">
+                Built with passion and dedication to learning.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // Page routing
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('header nav a');
+            const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
+
+            function showPage(pageId) {
+                pages.forEach(page => {
+                    if (page.id === pageId) {
+                        page.classList.add('active');
+                    } else {
+                        page.classList.remove('active');
+                    }
+                });
+                
+                // For sections within the home page
+                if (pageId.startsWith('about') || pageId.startsWith('skills') || pageId.startsWith('projects') || pageId.startsWith('experience') || pageId.startsWith('contact')) {
+                    document.getElementById('home').classList.add('active');
+                    const sectionId = pageId + '-section-home';
+                    const section = document.getElementById(sectionId);
+                    if(section) {
+                       section.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            }
+
+            function handleNavigation(e) {
+                const link = e.currentTarget;
+                const hash = link.getAttribute('href');
+                if (hash.startsWith('#')) {
+                    e.preventDefault();
+                    const pageId = hash.substring(1);
+                    showPage(pageId);
+                    window.location.hash = hash;
+                    
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            }
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', handleNavigation);
+            });
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', handleNavigation);
+            });
+
+
+            const initialHash = window.location.hash.substring(1) || 'home';
+            showPage(initialHash);
+
+
+            // Typing Animation
+            const typingTextElement = document.getElementById('typing-text');
+            if (typingTextElement) {
+                const words = ["Coder", "Developer", "Creator", "Learner", "Problem Solver"];
+                let wordIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+                const typingSpeed = 150;
+                const deletingSpeed = 75;
+                const delayBetweenWords = 1500;
+
+                function type() {
+                    const currentWord = words[wordIndex];
+                    if (isDeleting) {
+                        typingTextElement.textContent = currentWord.substring(0, charIndex - 1);
+                        charIndex--;
+                    } else {
+                        typingTextElement.textContent = currentWord.substring(0, charIndex + 1);
+                        charIndex++;
+                    }
+
+                    if (!isDeleting && charIndex === currentWord.length) {
+                        isDeleting = true;
+                        setTimeout(type, delayBetweenWords);
+                    } else if (isDeleting && charIndex === 0) {
+                        isDeleting = false;
+                        wordIndex = (wordIndex + 1) % words.length;
+                        setTimeout(type, typingSpeed);
+                    } else {
+                        setTimeout(type, isDeleting ? deletingSpeed : typingSpeed);
+                    }
+                }
+                type();
+            }
+
+            // Custom Context Menu
+            const body = document.body;
+            let customContextMenu = null;
+
+            body.addEventListener('contextmenu', (event) => {
+                const selection = window.getSelection();
+                if (selection && selection.toString().trim().length > 0) {
+                    event.preventDefault();
+                    showCustomContextMenu(event.clientX, event.clientY, selection.toString());
+                } else {
+                    event.preventDefault();
+                    hideCustomContextMenu();
+                }
+            });
+
+            function showCustomContextMenu(x, y, selectedText) {
+                hideCustomContextMenu();
+                customContextMenu = document.createElement('div');
+                customContextMenu.className = 'custom-context-menu';
+                customContextMenu.style.left = `${x}px`;
+                customContextMenu.style.top = `${y}px`;
+                customContextMenu.style.display = 'block';
+
+                const copyButton = document.createElement('button');
+                copyButton.textContent = 'Copy';
+                copyButton.onclick = () => {
+                    navigator.clipboard.writeText(selectedText).then(() => {
+                        copyButton.textContent = 'Copied!';
+                        setTimeout(() => {
+                            hideCustomContextMenu();
+                        }, 1200);
+                    });
+                };
+                customContextMenu.appendChild(copyButton);
+                body.appendChild(customContextMenu);
+            }
+
+            function hideCustomContextMenu() {
+                if (customContextMenu) {
+                    customContextMenu.remove();
+                    customContextMenu = null;
+                }
+            }
+            
+            document.addEventListener('click', (event) => {
+                if (customContextMenu && !customContextMenu.contains(event.target)) {
+                    hideCustomContextMenu();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    hideCustomContextMenu();
+                }
+            });
+            
+            // Interactive Grid Background
+            document.addEventListener('click', function (e) {
+                if (e.target.closest('a, button, input, textarea, .nav-link, #menu-toggle, .glass-card, .custom-context-menu')) {
+                    return;
+                }
+
+                const gridSize = 20;
+                const x = Math.floor(e.pageX / gridSize) * gridSize;
+                const y = Math.floor(e.pageY / gridSize) * gridSize;
+
+                const createLitSquare = (posX, posY) => {
+                    const square = document.createElement('div');
+                    square.classList.add('lit-square');
+                    square.style.left = posX + 'px';
+                    square.style.top = posY + 'px';
+                    document.body.appendChild(square);
+
+                    setTimeout(() => {
+                        square.style.opacity = '0';
+                        setTimeout(() => {
+                            if (square.parentNode) {
+                                square.parentNode.removeChild(square);
+                            }
+                        }, 500);
+                    }, 1000);
+                };
+                createLitSquare(x, y);
+            });
+
+            // Custom Cursor
+            const cursorDot = document.querySelector('.cursor-dot');
+            const interactiveElements = document.querySelectorAll('a, button, input, textarea, .glass-card, .custom-context-menu button');
+
+            let mouseX = 0;
+            let mouseY = 0;
+            let cursorX = 0;
+            let cursorY = 0;
+            const speed = 0.1;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animateCursor() {
+                cursorX += (mouseX - cursorX) * speed;
+                cursorY += (mouseY - cursorY) * speed;
+                if (cursorDot) {
+                    cursorDot.style.left = `${cursorX}px`;
+                    cursorDot.style.top = `${cursorY}px`;
+                }
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursorDot && cursorDot.classList.add('active'));
+                el.addEventListener('mouseleave', () => cursorDot && cursorDot.classList.remove('active'));
+            });
+
+            // Mobile Menu Toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Contact Form Submission (Basic placeholder)
+            const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+            if (contactForm && formStatus) {
+                contactForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    formStatus.textContent = 'Sending...';
+                    formStatus.style.color = 'var(--primary)';
+
+                    setTimeout(() => {
+                        formStatus.textContent = 'Message sent! (Demo - No actual sending)';
+                        contactForm.reset();
+                    }, 2000);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
